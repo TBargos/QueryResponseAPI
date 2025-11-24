@@ -6,6 +6,8 @@ from django.utils.decorators import method_decorator
 
 from typing import Optional
 
+from .db_utils import get_all_questions, get_question
+
 # Create your views here.
 
 
@@ -13,10 +15,14 @@ from typing import Optional
 class QuestionsView(View):
     def get(self, request: HttpRequest, question_id: Optional[int] = None) -> HttpResponse:
         if question_id is not None:
-            context = context = {'answer': f'GET-запрос на question с id {question_id}'}
-            return render(request, 'qa_app/base.html', context)
-        context = {'answer': f'GET-запрос на question'}
-        return render(request, 'qa_app/base.html', context)
+            questions = [get_question(question_id)]
+            show_answers = True
+        else:
+            questions = get_all_questions()
+            show_answers = False
+
+        context = {'questions': questions, 'show_answers': show_answers}
+        return render(request, 'qa_app/questions.html', context)
     
     def post(self, request: HttpRequest) -> HttpResponse:
         # TODO продумать случай, если сюда попадёт id

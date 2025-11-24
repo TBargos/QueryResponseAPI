@@ -1,0 +1,29 @@
+{% extends "qa_app/base.html" %}
+
+{% block content %}
+
+
+{% for q in questions %}
+  <div class="question">
+    <h3>{{q.text}}</h3>
+    <p>Опубликовано: {{q.created_at}}</p>
+    {% if show_answers %}
+      <div class="answers">
+          <h4>Ответы:</h4>
+          {% for a in q.answers_set.all %}
+            <div class="answer">
+                <p>{{a.text}}</p>
+                <p>Пользователь: {{a.user_id}}, Опубликовано: {{a.created_at}}</p>
+            </div>
+          {% empty %}
+            <p>На данный момент к этому вопросу нет ответов.</p>
+          {% endfor %}
+      </div>
+    {% endif %}
+</div>
+{% empty %}
+  <h3>На данный момент нет сохранённых вопросов.</h3>
+{% endfor %}
+
+
+{% endblock content %}
