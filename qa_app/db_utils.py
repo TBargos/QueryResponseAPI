@@ -9,3 +9,7 @@ def get_all_questions() -> QuerySet[Questions]:
 
 def get_question(question_id: int) -> Questions:
     return Questions.objects.prefetch_related('answers_set').get(pk=question_id)
+
+
+def create_new_question(data: dict):
+    return Questions.objects.create(**data)

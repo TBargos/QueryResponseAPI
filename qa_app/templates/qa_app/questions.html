@@ -18,6 +18,14 @@
           {% empty %}
             <p>На данный момент к этому вопросу нет ответов.</p>
           {% endfor %}
+          <h4>Добавить новый ответ</h4>
+          <form id="answerForm" action="{{ q.id }}/answers/" method="POST">
+              <label for="user_answer">Текст ответа:</label>
+              <input type="text" id="user_question" name="text" required>
+              <input type="hidden" name="user_id" value="d1bb64b1-1004-460b-a2e7-a63512cc45f1">
+              <input type="hidden" name="question_id" value="{{ q.id }}">
+              <button type="submit">Добавить новый ответ</button>
+          </form>
       </div>
     {% endif %}
 </div>
@@ -25,5 +33,12 @@
   <h3>На данный момент нет сохранённых вопросов.</h3>
 {% endfor %}
 
+
+<h3>Добавить новый вопрос</h3>
+<form id="questionForm" action="" method="POST">
+    <label for="user_question">Текст вопроса:</label>
+    <input type="text" id="user_question" name="text" required>
+    <button type="submit">Создать новый вопрос</button>
+</form>
 
 {% endblock content %}

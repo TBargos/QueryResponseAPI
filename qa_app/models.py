@@ -6,7 +6,7 @@ from django.db import models
 class Questions(models.Model):
     id = models.BigAutoField(primary_key=True)
     text = models.TextField('текст вопроса')
-    created_at = models.DateTimeField('дата публикации')
+    created_at = models.DateTimeField('дата публикации', auto_now_add=True, editable=False)
 
     class Meta:
         db_table = 'questions'
@@ -17,7 +17,7 @@ class Answers(models.Model):
     question_id = models.ForeignKey(Questions, on_delete=models.CASCADE)
     user_id = models.UUIDField('идентификатор пользователя', default=uuid.uuid4, editable=False)
     text = models.TextField('текст ответа')
-    created_at = models.DateTimeField('дата публикации')
+    created_at = models.DateTimeField('дата публикации', auto_now_add=True, editable=False)
 
     class Meta:
         db_table = 'answers'
